@@ -7,7 +7,7 @@ NMS(Non-Maximum Suppression)的目的是筛选出重叠程度高的目标框，�
 import numpy as np
 
 
-def non_max_suppression(dects, iou_threshold):
+def non_max_suppression(dects, iou_threshold, box_score=0.001):
     """
     非极大值抑制函数，用于目标框去重。
     :param dects: numpy-2d, 待处理的目标框列表，每个目标框为一个含有5个元素的列表或元组，
@@ -29,6 +29,8 @@ def non_max_suppression(dects, iou_threshold):
 
     for i in range(num_dects):
         # 如果当前目标框已被抑制，则跳过
+        if sort_dects[i, -1] < box_score:
+            suppressed[i] = 1
         if suppressed[i] == 1:
             continue
 
@@ -37,11 +39,63 @@ def non_max_suppression(dects, iou_threshold):
 
         # 遍历之后的目标框，判断是否重叠并抑制重叠的目标框
         for j in range(i+1, num_dects):
+            if sort_dects[j, -1] < box_score:
+                suppressed[i] = 1
             if suppressed[j] == 1:
                 continue
             iou, area_i, area_j = bbox_iou(sort_dects[i], sort_dects[j])
             if iou > iou_threshold:
                 suppressed[j] = 1
+
+    return keep_index
+
+
+def soft_nms(dects, iou_threshold, sigma=0.5, score_threshold=0.001):
+    """
+    软性非极大值抑制函数，用于目标框去重。
+    :param dects: numpy-2d, 待处理的目标框列表，每个目标框为一个含有5个元素的列表或元组，
+                  分别为左上角x坐标、左上角y坐标、右下角x坐标、右下角y坐标和得分。
+    :param iou_threshold: float, IOU阈值，用于判断两个目标框是否重叠。
+    :param sigma: float, 高斯函数的方差，用于计算目标框得分的衰减因子。
+    :param score_threshold: float, 目标框得分阈值，低于此阈值的目标框会被抑制。
+    :return: 保留的目标框索引列表。
+    """
+    num_dects = dects.shape[0]
+    # 初始化被抑制的目标框
+    suppressed = np.zeros(num_dects, dtype=int)
+
+    # 按照得分降序排序
+    index = np.argsort(dects[:, -1])[::-1]
+    # 获取排序后的dects
+    sort_dects = dects[index]
+
+    # 记录保留的目标框的索引
+    keep_index = []
+
+    for i in range(num_dects):
+        # 如果当前目标框已被抑制，则跳过
+        if suppressed[i] == 1:
+            continue
+
+        # 否则将当前目标框的索引添加到保留列表中
+        keep_index.append(index[i])
+
+        # 计算当前目标框与之后的目标框的IOU
+        for j in range(i+1, num_dects):
+            if suppressed[j] == 1:
+                continue
+            iou, _, _ = bbox_iou(sort_dects[i], sort_dects[j])
+            if iou > iou_threshold:
+                # 计算衰减因子
+                weight = np.exp(-(iou * iou) / sigma)
+                # 衰减得分
+                sort_dects[j, -1] *= weight
+                # 如果衰减后得分小于阈值，则抑制该目标框
+                if sort_dects[j, -1] < score_threshold:
+                    suppressed[j] = 1
+
+    # 更新目标框列表
+    dects[index] = sort_dects
 
     return keep_index
 
@@ -72,4 +126,6 @@ if __name__ == '__main__':
                       [32, 32, 42, 42, 0.8],
                       [30, 30, 40, 40, 0.6]])
     index_lst = non_max_suppression(dects, 0.5)
+    index_lst1 = soft_nms(dects, 0.5, sigma=0.9)
     print(index_lst)
+    print(index_lst1)
