@@ -5,23 +5,6 @@
 
 using namespace std;
 
-// dp = [float('inf')] * (amount + 1)  # 表示组成金额 i 所需的最少硬币数
-//     dp[0] = 0
-
-//     # for i in range(1, amount + 1):
-//     #     for coin in coins:
-//     #         if i >= coin:
-//     #             dp[i] = min(dp[i], dp[i - coin] + 1)
-
-//     for coin in coins:
-//         for i in range(1, amount + 1):
-//             if i >= coin:
-//                 dp[i] = min(dp[i], dp[i - coin] + 1)
-
-//     if dp[amount] == float('inf'):
-//         return -1
-//     else:
-//         return dp[amount]
 
 int minCoinChange(int amount, vector<int>& coins){
     int Max = amount + 1;
