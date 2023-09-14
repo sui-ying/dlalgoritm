@@ -58,7 +58,7 @@ int climb_stairs_constraint(int n){
     }
 
     // 状态 dp[i][j] 表示处在第 i 阶、并且上一轮跳了 j(1 or 2) 阶
-    vector<vector<int>>dp(n+1, vector<int>(3, 0));
+    vector<vector<int>>dp(n+1, vector<int>(3, 0));  // 定义二维vector
     dp[1][1] = 1;
     dp[1][2] = 0;
     dp[2][1] = 0;

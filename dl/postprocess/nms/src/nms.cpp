@@ -27,7 +27,6 @@ void printDects(vector<bbox>& dects){
     for (vector<bbox>::iterator it = dects.begin(); it != dects.end(); it++){
         cout << (*it).x1 << " " << (*it).y1 << " " << (*it).x2 << " " << (*it).y2 << " " << (*it).score << endl;
     }
-
 }
 
 void printIndex(vector<int> & Index){
@@ -96,7 +95,7 @@ vector<bbox> nonMaximumSuppression(vector<bbox>& dects, float iouThreshold, floa
     vector<bbox> keep_dects;
 
     // 1. Sort the detections based on scores in descending order: 对bbox按照分数大小排序
-    sort(dects.begin(), dects.end(), compareByScore);
+    sort(dects.begin(), dects.end(), compareByScore);  // 使用仿函数自定义排序: 分数从大到小
 
     // 2. filter by iou of two bbox
     for (int i = 0; i < dects.size(); i++){
