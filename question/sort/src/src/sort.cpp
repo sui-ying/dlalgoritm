@@ -26,6 +26,47 @@ public:
         cout << endl;
     }
     
+    /**
+     * @brief swap two nums
+     * @param num1 
+     * @param num2 
+     */
+    void swap(int & num1, int & num2){
+        int tmp = num1;
+        num1 = num2;
+        num2 = tmp;
+    }
+
+    /**
+     * @brief bubbleSort
+     * O(n)=O(n^2), T(n)=O(1)
+     */
+    void bubbleSort(){
+        for (int i = 0; i < this->size-1; i++){
+            for (int j = 0; j < this->size-1-i; j++){
+                if (this->arr[j] > this->arr[j+1]){
+                    swap(this->arr[j], this->arr[j+1]);
+                }
+            }
+        }
+    }
+
+    /**
+     * @brief 
+     * O(n)=O(n^2), T(n)=O(n)
+     */
+    void insertSort(){
+        for (int i = 1; i<this->size; i++){
+            int base = this->arr[i];
+            int j = i-1;
+            while (j>=0 && this->arr[j] > base){
+                this->arr[j+1] = this->arr[j];
+                j--;
+            }
+            this->arr[j+1] = base;
+        }    
+    }
+
     // ****************************** quickSort ****************************** //
     int partition(int low, int high) {
         int pivot = arr[high];  // 将最后一个元素选为基准值
@@ -51,12 +92,30 @@ public:
         }
     }
 
+    /**
+     * @brief quickSort
+     * 
+     */
     void quickSort(){
         quickSortMain(0, this->size - 1);
     }
 
-    // ****************************** mergeSort ****************************** //
-    
+  
+    /**
+     * @brief selectionSort
+     * O(n)=O(n^2), T(n)=O(1)
+     */
+    void selectionSort(){
+        for (int i=0; i<this->size; i++){
+            for (int j=i+1; j<this->size; j++){
+                if (arr[i] > arr[j]){
+                    int tmp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = tmp;
+                }
+            }
+        }
+    }
     // ~Sort();
 };
 
@@ -66,7 +125,10 @@ int main() {
     int n = arr.size();
 
     Sort sort(arr, n);
+    // sort.bubbleSort();
+    // sort.insertSort();
     sort.quickSort(); 
+    // sort.selectionSort();
     sort.PrintArr();
 
     return 0;
