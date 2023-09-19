@@ -2,31 +2,34 @@
 
 #!/bin/bash
 
-name=$1
-echo "touch $name"
+dirname=$1
+filename=$2
+echo "./pre_coding.sh $dirname $filename"
 
-if [ ! -d "dynamic_programming" ]
+if [ ! -d "$dirname" ]
 then
-    mkdir "dynamic_programming"
+    mkdir "$dirname"
+    mkdir "$dirname"/src
+    mkdir "$dirname"/script
 else
-    if [ ! -d "dynamic_programming"/src ]
+    if [ ! -d "$dirname"/src ]
     then
-      mkdir "dynamic_programming"/src
+      mkdir "$dirname"/src
     fi
 
-    if [ ! -d "dynamic_programming"/script ]
+    if [ ! -d "$dirname"/script ]
     then
-      mkdir "dynamic_programming"/script
+      mkdir "$dirname"/script
     fi
 fi
 
 
-if [ ! -e "dynamic_programming/src/${name}.cpp" ]
+if [ ! -e "$dirname/src/${filename}.cpp" ]
 then
-  cp demo/src/demo.cpp  dynamic_programming/src/${name}.cpp
+  cp demo/src/demo.cpp  $dirname/src/${filename}.cpp
 fi
 
-if [ ! -e "dynamic_programming/script/${name}.py" ]
+if [ ! -e "$dirname/script/${filename}.py" ]
 then
-  cp demo/script/demo.py  dynamic_programming/script/${name}.py
+  cp demo/script/demo.py  $dirname/script/${filename}.py
 fi
