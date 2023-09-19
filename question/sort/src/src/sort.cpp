@@ -127,8 +127,8 @@ int main() {
     Sort sort(arr, n);
     // sort.bubbleSort();
     // sort.insertSort();
-    sort.quickSort(); 
-    // sort.selectionSort();
+    // sort.quickSort(); 
+    sort.selectionSort();
     sort.PrintArr();
 
     return 0;
