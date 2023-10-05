@@ -6,6 +6,13 @@
 
 int NOI( vector<vector<int>>& arr2d){
     int length = arr2d.size();   // 向量的长度可以通过其size()成员函数来获取
+    if (length == 0){
+        return 0;
+    }
+
+    sort(arr2d.begin(), arr2d.end(), [](vector<int> a, vector<int> b) 
+        { return a[1] < b[1]; }
+    );  //升序排序
     int res = 0;
     int preNode = arr2d[0][1];
     for (int i = 1; i < length; i++){
