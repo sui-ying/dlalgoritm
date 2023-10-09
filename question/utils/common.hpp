@@ -3,6 +3,7 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<unordered_map>
 using namespace std;
 
 /**
@@ -24,4 +25,13 @@ int sumVector(vector<int>& arr){
     }
     return result;
 }
-    
+
+/**
+ * 打印unordered_map，输出形式类似python中的字典    
+*/
+void printUnorderedMap(unordered_map<char, int>& um){
+    for (const auto& pair : um) {
+        cout << "{" << pair.first << ": " << pair.second << "} ";
+    }
+    cout << endl;
+}
