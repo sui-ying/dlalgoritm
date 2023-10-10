@@ -1,3 +1,7 @@
+## README
+
+该章节主要介绍Python面试考点
+
 
 ### 1. [Python中的赋值、深拷贝与浅拷贝（内存地址)](script/assign_copy_deepcopy.py)
 [ref1](https://blog.csdn.net/yanjiangdi/article/details/103228984)
