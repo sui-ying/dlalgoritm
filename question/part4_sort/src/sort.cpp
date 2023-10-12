@@ -68,38 +68,49 @@ public:
     }
 
     // ****************************** quickSort ****************************** //
-    int partition(int low, int high) {
-        int pivot = arr[high];  // 将最后一个元素选为基准值
-        int i = low - 1;
-        
-        for (int j = low; j <= high - 1; j++) {
-            if (arr[j] <= pivot) {
-                i++;
-                swap(arr[i], arr[j]);  // 将较小的元素交换到前面
-            }
-        }
-        
-        swap(arr[i + 1], arr[high]);  // 将基准值放置到正确的位置
-        return (i + 1);
-    }
-
-    void quickSortMain(int low, int high) {
-        if (low < high) {
-            int pivotIndex = partition(low, high);      // 划分数组
-            // cout << "pivotIndex: " << pivotIndex << " low: " << low << " high: "  << high << endl;
-            quickSortMain(low, pivotIndex - 1);         // 递归左子数组排序
-            quickSortMain(pivotIndex + 1, high);        // 递归右子数组排序
-        }
-    }
-
     /**
-     * @brief quickSort
-     * 
-     */
-    void quickSort(){
-        quickSortMain(0, this->size - 1);
+     * 选基准元素，小于基准元素移向左边，大于基准元素移向右边，直到从小到大排列好
+    */
+    void quickSortMain(int l, int r, bool reverse = false) {
+        if (l + 1 >= r) {
+            return;
+        }
+        if ( ! reverse ){  // 正序
+            int first = l, last = r, key = arr[first];
+            while (first < last){
+                while(first < last && arr[last] >= key) { // 比基准数key大，直到找到比基准数小的数last--
+                    --last;  
+                }
+                arr[first] = arr[last];  // 将小于基准数arr[last] 赋值给arr[first]
+                while (first < last && arr[first] <= key) {  // 比基准数key小，first++
+                    ++first;
+                } 
+                arr[last] = arr[first];  // 将大于基准数arr[first] 赋值给arr[last]
+            }
+            arr[first] = key;   // 直到first 和 last 相遇， 将基准值key赋值给arr[first]
+            quickSortMain(l, first, reverse);   // 对左边{l, first}进行快排
+            quickSortMain(first + 1, r, reverse);  // 对右边{first+1, last}进行快排
+        } else {  // 逆序
+            int first = l, last = r, key = arr[first];
+            while (first < last){
+                while(first < last && arr[last] <= key) { // 比基准数key小，直到找到比基准数大的数last--
+                    --last;  
+                }
+                arr[first] = arr[last];  // 将大于基准数arr[last] 赋值给arr[first]
+                while (first < last && arr[first] >= key) {  // 比基准数key大，first++
+                    ++first;
+                } 
+                arr[last] = arr[first];  // 将小于基准数arr[first] 赋值给arr[last]
+            }
+            arr[first] = key;   // 直到first 和 last 相遇， 将基准值key赋值给arr[first]
+            quickSortMain(l, first, reverse);   // 对左边{l, first}进行快排
+            quickSortMain(first + 1, r, reverse);  // 对右边{first+1, last}进行快排
+        }
     }
 
+    void quickSort(){
+        quickSortMain(0, size-1);
+    }
   
     /**
      * @brief selectionSort
@@ -125,9 +136,9 @@ int main() {
     int n = arr.size();
 
     Sort sort(arr, n);
-    // sort.bubbleSort();
-    // sort.insertSort();
-    // sort.quickSort(); 
+    sort.bubbleSort();
+    sort.insertSort();
+    sort.quickSort(); 
     sort.selectionSort();
     sort.PrintArr();
 
