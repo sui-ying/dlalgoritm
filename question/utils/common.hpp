@@ -4,6 +4,7 @@
 #include<cmath>
 #include<vector>
 #include<algorithm>
+#include<set>
 #include<unordered_map>
 using namespace std;
 
@@ -18,6 +19,26 @@ void printVector(vector<int>& arr){
     cout << endl;
 }
 
+/**
+ * 打印二维vector
+ * 如需打印其他C++中数据类型，可以将函数改写成模板函数
+*/
+void printVector2d(vector<vector<int>>& arr2d){
+    for (vector<vector<int>>::iterator it = arr2d.begin(); it != arr2d.end(); it++){ // it 为一个指针， 指向二维向量vec的一级迭代器
+        for (vector<int>::iterator jt = it->begin(); jt != it->end(); jt++){
+            cout << *jt << " ";
+        }
+        cout << endl;
+    }
+
+    // for (auto it = arr2d.begin(); it != arr2d.end(); ++it) {
+    //     // it 为一个指针， 指向二维向量vec的一级迭代器
+    //     for (auto jt = it->begin(); jt != it->end(); ++jt) {
+    //         cout << *jt << " ";
+    //     }
+    //     cout << endl;
+    // }
+}
 
 int sumVector(vector<int>& arr){
     int result = 0;
