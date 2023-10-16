@@ -31,9 +31,13 @@ def merge(nums1, m, nums2, n):
     print(nums1)
 
 
+
 if __name__ == '__main__':
     nums1 = [0]
     m = 0
     nums2 = [1]
     n = 1
     merge(nums1, m, nums2, n)
+
+
+

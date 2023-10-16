@@ -54,11 +54,13 @@ class Sort:
             while self.arr[right] >= mid_data and left < right:
                 right -= 1
             self.arr[left] = self.arr[right]
+            # print(right, self.arr)
             while self.arr[left] < mid_data and left < right:
                 left += 1
             self.arr[right] = self.arr[left]
+            # print(left, self.arr)
         self.arr[left] = mid_data
-        print(self.arr)
+        # print(self.arr, "\n")
         self.quick_sort_main(start, left - 1)
         self.quick_sort_main(left + 1, end)
         return self.arr
@@ -131,7 +133,7 @@ class Sort:
 
 if __name__ == '__main__':
     array = [10, 17, 50, 7, 30, 30, 27, 45, 15, 5, 36, 21]
-
+    print(array)
     sort = Sort(array)
     # print(sort.bubble_sort())
     # print(sort.insert_sort())
