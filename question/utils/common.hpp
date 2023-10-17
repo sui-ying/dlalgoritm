@@ -6,6 +6,9 @@
 #include<algorithm>
 #include<set>
 #include<unordered_map>
+
+#include<numeric>
+
 using namespace std;
 
 /**
