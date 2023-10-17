@@ -15,8 +15,9 @@ using namespace std;
  * 打印一维vector
  * 如需打印其他C++中数据类型，可以将函数改写成模板函数
 */
-void printVector(vector<int>& arr){
-    for (vector<int>::iterator it = arr.begin(); it != arr.end(); it++){
+template<typename T>
+void printVector(vector<T>& arr){
+    for (typename vector<T>::iterator it = arr.begin(); it != arr.end(); it++){
         cout << *it << " ";
     }
     cout << endl;
