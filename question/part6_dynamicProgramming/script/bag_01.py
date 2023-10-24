@@ -12,6 +12,7 @@ def knapsack_dp(wgt: list, val: list, cap: int) -> int:
             else:
                 # 不选和选物品 i 这两种方案的较大值
                 dp[i][c] = max(dp[i - 1][c], dp[i - 1][c - wgt[i - 1]] + val[i - 1])
+    print(dp)
     return dp[n][cap]
 
 
