@@ -15,9 +15,12 @@ struct ListNode {
 
 class Solution {
 public:
+    /**
+     * 迭代，通过双指针实现
+    */
     ListNode* reverseList(ListNode* head) {
-        ListNode* cur = head;
-        ListNode* pre = nullptr;
+        ListNode* cur = head;    // 指向头结点
+        ListNode* pre = nullptr;  // 指向None
         while (cur != nullptr) {
             ListNode* tmp = cur->next;  // 暂存后继节点 cur.next
             cur->next = pre;   // 修改 next 引用指向
@@ -38,8 +41,8 @@ public:
 };
 
 int main(){
-    ListNode* head = new ListNode(1);
-    head->next = new ListNode(2);
+    ListNode* head = new ListNode(1);   // 创建链表头结点
+    head->next = new ListNode(2);  // 链表添加新的节点
 
     Solution solution;
     solution.printLinkedlist(head);
