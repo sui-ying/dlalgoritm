@@ -11,7 +11,7 @@ class LinkedList:
         self.head = None
 
     def create(self, data):
-        self.head = ListNode(0)
+        self.head = ListNode(0)   # 创建节点
         cur = self.head
 
         for i in range(len(data)):
@@ -109,13 +109,16 @@ class LinkedList:
         cur.next = del_node.next
 
     def reverse(self):
-        prev = None
-        cur = self.head
+        """
+        迭代，通过双指针实现
+        """
+        prev = None   # 指向None
+        cur = self.head   # 指向头结点
         while cur:
-            next_node = cur.next
-            cur.next = prev
-            prev = cur
-            cur = next_node
+            next_node = cur.next  # 暂存后继节点
+            cur.next = prev  # 当前节点指向更改为prev
+            prev = cur    # pre暂存当前节点
+            cur = next_node  # 当前节点指向 next_node，即链表末尾
         self.head = prev
 
 
