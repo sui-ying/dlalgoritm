@@ -11,6 +11,7 @@ then
     mkdir "$dirname"
     mkdir "$dirname"/src
     mkdir "$dirname"/script
+    touch "$dirname"/README.md
 else
     if [ ! -d "$dirname"/src ]
     then
@@ -23,6 +24,11 @@ else
     fi
 fi
 
+
+if [ ! -e "$dirname"/README.md ]
+then
+  touch "$dirname"/README.md
+fi
 
 if [ ! -e "$dirname/src/${filename}.cpp" ]
 then
